@@ -1,0 +1,42 @@
+body {
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+h2 {
+  bottom: 20px;
+  left: 20px;
+  padding-left: 5%;
+  height: 100%;
+  color: #ffffff;
+  font-size: 60px;
+  background-color: rgba(135, 135, 135, 0.6);
+}
+
+h2:hover {
+  background-color: rgba(135, 135, 135, 0);
+}
+
+table {
+  width: 100%;
+  min-height: 600px;
+  height: calc(100vh - 66px);
+}
+
+.textbox {
+  width: 67%;
+  float: left;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.table {
+  width: 100%;
+  padding: 15px;
+}

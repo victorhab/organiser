@@ -1,0 +1,119 @@
+body {
+  font-family: "Josefin Slab", "Helvetica Nueve", Helvetica, Arial, sans-serif;
+  width: 100vw;
+  margin: 0px;
+  min-width: 250px;
+}
+
+h1 {
+  font-size: 20px;
+  color: #8c8c8c;
+}
+
+a {
+  text-decoration: none;
+  color: #555;
+}
+
+tr {
+  width: 100%;
+  height: 18%;
+  max-height: 18%;
+}
+
+td {
+  width: 14vw;
+  border: 1px solid #919191;
+  padding-left: 8px;
+  padding-top: 8px;
+  vertical-align: top;
+}
+
+input::placeholder {
+  vertical-align: top;
+}
+
+.topbar {
+  overflow: hidden;
+  float: left;
+  width: 100%;
+  background-color: #efefef;
+  height: 80px;
+  display: block;
+  border-bottom: 1px solid #919191;
+}
+
+.sidebar {
+  width: 20%;
+}
+
+.form {
+  padding: 50px;
+  width: 45%;
+  height: 100vh;
+}
+
+.loginform {
+  border-right: 1px solid #919191;
+}
+
+.headertitle {
+  width: 150px;
+  display: inline;
+}
+
+@media (max-width: 700px) {
+  .headertitle {
+    display: none;
+  }
+}
+
+.headerdate {
+  width: 150px;
+  display: inline;
+  padding-left: 10%;
+}
+
+.button {
+    padding: 6px;
+    width: 100px;
+    max-height: 40px;
+    background: #d9d9d9;
+    color: #555;
+    text-align: center;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 5px;
+    display: inline;
+}
+
+.button:hover {
+    background-color: #bbb;
+}
+
+.plusbutton {
+  background: #b20000;
+  color: #ffffff;
+}
+
+#logo {
+  height: 40px;
+  width: auto;
+  display: inline;
+  padding-top: 5px;
+}
+
+#headerelements {
+  position: absolute;
+  top: 5px;
+  height: 40px;
+  display: inline;
+}
+
+#pluslogo {
+  padding-bottom: 10px;
+  height: 80%;
+  width: auto;
+}
