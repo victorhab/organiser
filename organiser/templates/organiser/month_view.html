@@ -28,13 +28,18 @@
           <img src="{% static 'img/calendar-icon.png' %}" style="height: 40px; width: auto;">
           Calendar
         </a>
-        <a class="btn btn-primary gradient" href="createevent.html" style="margin-left: 50px;">
+        <a class="btn btn-primary gradient" href="{% url 'createevent' %}" style="margin-left: 50px;">
           <span class='glyphicon glyphicon-plus' style="width: 100px; font-family:inherit;">Add</span>
         </a>
         <div>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
+              {% if not user.is_authenticated %}
               <button class="button" ><a href="{% url 'login' %}" style="color: #343a40;">Log In</a></button>
+              {% endif %}
+              {% if user.is_authenticated %}
+              <button class="button" ><a href="{% url 'login' %}" style="color: #343a40;">Log Out</a></button>
+              {% endif %}
             </li>
 
           </ul>
@@ -55,7 +60,7 @@
             <td>Sun<br>7</td>
           </tr>
           <tr>
-            <td><a href="dayview.html">8</a></td>
+            <td><a href="{% url 'day_view' %}">8</a></td>
             <td>9</td>
             <td>10</td>
             <td>11</td>

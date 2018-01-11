@@ -16,6 +16,17 @@ def month_view(request):
     events = Event.objects.filter(creator=request.user)
     return render(request, 'organiser/month_view.html', {'events': events})
 
+def week_view(request):
+    events = Event.objects.filter(creator=request.user)
+    return render(request, 'organiser/week_view.html', {'events': events})
+
+def day_view(request):
+    events = Event.objects.filter(creator=request.user)
+    return render(request, 'organiser/day_view.html', {'events': events})
+
+def createevent(request):
+    return redirect('home_view')
+
 def add_event(request):
     if request.method == "POST":
         form = EventForm(request.POST)
