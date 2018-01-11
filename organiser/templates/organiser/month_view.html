@@ -35,10 +35,10 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               {% if not user.is_authenticated %}
-              <button class="button" ><a href="{% url 'login' %}" style="color: #343a40;">Log In</a></button>
+              <button class="button" ><a href="{% url 'auth_login' %}" style="color: #343a40;">Log In</a></button>
               {% endif %}
               {% if user.is_authenticated %}
-              <button class="button" ><a href="{% url 'login' %}" style="color: #343a40;">Log Out</a></button>
+              <button class="button" ><a href="{% url 'auth_login' %}" style="color: #343a40;">Log Out</a></button>
               {% endif %}
             </li>
 

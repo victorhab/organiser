@@ -98,6 +98,10 @@ input::placeholder {
   color: #ffffff;
 }
 
+.helptext {
+  display: none;
+}
+
 #logo {
   height: 40px;
   width: auto;
