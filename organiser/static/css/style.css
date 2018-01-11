@@ -15,19 +15,6 @@ a {
   color: #555;
 }
 
-tr {
-  width: 100%;
-  height: 18%;
-  max-height: 18%;
-}
-
-td {
-  width: 14vw;
-  border: 1px solid #919191;
-  padding-left: 8px;
-  padding-top: 8px;
-  vertical-align: top;
-}
 
 input::placeholder {
   vertical-align: top;
@@ -37,7 +24,7 @@ input::placeholder {
   overflow: hidden;
   float: left;
   width: 100%;
-  background-color: #efefef;
+  background-color: #5181d1;
   height: 80px;
   display: block;
   border-bottom: 1px solid #919191;
