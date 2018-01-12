@@ -40,6 +40,17 @@ input::placeholder {
   height: 100vh;
 }
 
+@media (max-width: 600px) {
+  .form {
+    width: 100%;
+    height: auto;
+  }
+  .loginform {
+    border-right: 0px solid #ffffff;
+    border-bottom: 1px solid #919191;
+  }
+}
+
 .loginform {
   border-right: 1px solid #919191;
 }

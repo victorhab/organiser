@@ -6,6 +6,7 @@ from datetime import *
 from .forms import EventForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+import json
 
 def home_view(request):
     if not request.user.is_authenticated:
@@ -40,8 +41,10 @@ def auth_login(request):
 
 def month_view(request):
     events = Event.objects.filter(creator=request.user)
-    today = str(datetime.now())
-    return render(request, 'organiser/month_view.html', {'events': events}, {'today': today})
+    testevent = Event.objects.get(title='testevent')
+    testtitle = 'test title'
+    testeventjson = json.dumps('json test')
+    return render(request, 'organiser/month_view.html', {'eventlist': events, 'testevent': testevent, 'testtitle': testtitle, 'testeventjson': testeventjson})
 
 def week_view(request):
     events = Event.objects.filter(creator=request.user)
@@ -52,21 +55,14 @@ def day_view(request):
     return render(request, 'organiser/day_view.html', {'events': events})
 
 def createevent(request):
-    form = EventForm();
-    return render(request, 'organiser/createevent.html', {'form': form})
-
-def add_event(request):
     if request.method == "POST":
         form = EventForm(request.POST)
         if form.is_valid():
-            activity = form.save(commit=False)
-            activity.author = request.user
-            activity.save()
-            return redirect('homepage')
+            event = form.save(commit=False)
+            event.creator = request.user
+            event.save()
+            return redirect('month_view')
 
     else:
         form = EventForm()
-    return render(request, 'calendar/event_edit.html', {'form': form})
-
-def register(request):
-    return render(request, 'calendar/register.html')
+    return render(request, 'organiser/createevent.html', {'form': form})
