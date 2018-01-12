@@ -7,6 +7,8 @@ from .forms import EventForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 import json
+from rest_framework import generics
+from .serializers import EventSerializer
 
 def home_view(request):
     if not request.user.is_authenticated:
@@ -66,3 +68,10 @@ def createevent(request):
     else:
         form = EventForm()
     return render(request, 'organiser/createevent.html', {'form': form})
+
+class EventView(generics.ListCreateAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
+    def perform_event(self, serializer):
+        serializer.save()

@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^week/$', views.week_view, name='week_view'),
     url(r'^day/$', views.day_view, name='day_view'),
     url(r'^createevent/$', views.createevent, name='createevent'),
-    url(r'^logout/$', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout')
+    url(r'^logout/$', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
+    url(r'^events/$', views.EventView.as_view(), name='events'),
 ]
