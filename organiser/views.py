@@ -1,8 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Event
-from django.shortcuts import redirect
-from datetime import *
 from .forms import EventForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -47,14 +45,6 @@ def month_view(request):
     testtitle = 'test title'
     testeventjson = json.dumps('json test')
     return render(request, 'organiser/month_view.html', {'eventlist': events, 'testevent': testevent, 'testtitle': testtitle, 'testeventjson': testeventjson})
-
-def week_view(request):
-    events = Event.objects.filter(creator=request.user)
-    return render(request, 'organiser/week_view.html', {'events': events})
-
-def day_view(request):
-    events = Event.objects.filter(creator=request.user)
-    return render(request, 'organiser/day_view.html', {'events': events})
 
 def createevent(request):
     if request.method == "POST":
