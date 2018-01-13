@@ -60,8 +60,14 @@ def createevent(request):
     return render(request, 'organiser/createevent.html', {'form': form})
 
 class EventView(generics.ListCreateAPIView):
-    queryset = Event.objects.all()
     serializer_class = EventSerializer
-
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        return Event.objects.filter(creator=user)
+    #queryset = Event.objects.all()
     def perform_event(self, serializer):
         serializer.save()

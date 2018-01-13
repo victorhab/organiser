@@ -72,8 +72,17 @@
       return myjson;
     }
 
-    function eventList() {
-      
+    function eventList(length) {
+      var eventarr = [];
+      for (i = 0; i < length; i++) {
+        var titleFromJson = getMyJSon()[i].title;
+        var dateFromJson = getMyJSon()[i].date_time;
+        eventarr.push({
+          title: titleFromJson,
+          start: new Date(dateFromJson)
+        });
+      }
+      return eventarr;
     }
 
 
@@ -140,7 +149,7 @@
 					$(this).remove();
 				}
 			},
-			events: eventList()/*[
+			events: eventList(getMyJSon().length)/*[
         {
 					title: getMyJSon()[0].title,
 					start: new Date(y, m, 28),
