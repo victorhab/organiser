@@ -1,8 +1,3 @@
-/*!
- * FullCalendar v1.6.4 Stylesheet
- * Docs & License: http://arshaw.com/fullcalendar/
- * (c) 2013 Adam Shaw
- */
  @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
 td.fc-day {
 
@@ -33,6 +28,11 @@ td.fc-today {
     font-weight: 500!important;
     padding: 5px 0px!important;
 }
+
+.cal-header {
+  width: 65vw;
+}
+
 
 .fc {
 	direction: ltr;
@@ -76,6 +76,18 @@ html .fc,
 	text-align: center;
 	}
 
+  @media (max-width: 970px) {
+    .fc-header-center {
+      float: left;
+    }
+  }
+  @media (max-width: 670px) {
+    .fc-header-center {
+      display: none;
+    }
+  }
+
+
 .fc-header-right {
 	width: 25%;
 	text-align: right;
@@ -94,6 +106,12 @@ html .fc,
     font-weight: 100;
     margin-bottom: 10px;
 		font-family: 'Roboto', sans-serif;
+}
+
+@media (max-width: 970px) {
+  .fc-header-title {
+    display: none;
+  }
 }
 	span.fc-button {
     font-family: 'Roboto', sans-serif;
@@ -694,6 +712,14 @@ table.fc-header{
 }
 .fc-button-today{
     border: 1px solid rgba(255,255,255,.0);
+}
+.fc-button-add{
+  width: 150px;
+}
+@media (max-width: 390px) {
+  .fc-button-add {
+    width: auto;
+  }
 }
 .fc-view-agendaDay thead tr.fc-first .fc-widget-header{
     text-align: right;

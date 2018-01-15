@@ -13,6 +13,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
   <link href="{% static 'css/style3.css' %}" rel="stylesheet">
 
+  <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
@@ -66,7 +67,7 @@
 
     function getMyJSon() {
       var myjson;
-      $.getJSON("http://2id60.win.tue.nl:8067/api/?format=json", function(json){
+      $.getJSON("http://127.0.0.1:8067/api/?format=json", function(json){
           myjson = json;
       });
       return myjson;
@@ -229,7 +230,7 @@
         <img src="{% static 'img/calendar-icon.png' %}" style="height: 30px; width: auto;">
         Calendar
       </a>
-        <span class='fc-button fc-button-today fc-state-default fc-corner-left fc-corner-right' style="width: 150px; font-family:inherit;">
+        <span class='fc-button fc-button-today fc-button-add fc-state-default fc-corner-left fc-corner-right' style="font-family:inherit;">
           <a href="{% url 'createevent' %}">
             Add
           </a>

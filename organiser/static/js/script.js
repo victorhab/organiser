@@ -745,12 +745,11 @@ function Header(calendar, options) {
 		tm = options.theme ? 'ui' : 'fc';
 		var sections = options.header;
 		if (sections) {
-			element = $("<table class='fc-header'/>")
+			element = $("<table class='fc-header cal-header'/>")
 				.append(
 					$("<tr/>")
 						.append(renderSection('left'))
 						.append(renderSection('center'))
-            .append(renderSection('centerright'))
 						.append(renderSection('right'))
 				);
 			return element;
@@ -5643,7 +5642,6 @@ function DayEventRenderer() {
 		// needs to be after, because resizableDayEvent might stopImmediatePropagation on click
 		eventElementHandlers(event, eventElement);
 	}
-
 
 	function draggableDayEvent(event, eventElement) {
 		var hoverListener = getHoverListener();

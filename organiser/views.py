@@ -40,11 +40,7 @@ def auth_login(request):
         return render(request, 'organiser/login.html', {'form': form, 'loginform': loginform})
 
 def month_view(request):
-    events = Event.objects.filter(creator=request.user)
-    testevent = Event.objects.get(title='testevent')
-    testtitle = 'test title'
-    testeventjson = json.dumps('json test')
-    return render(request, 'organiser/month_view.html', {'eventlist': events, 'testevent': testevent, 'testtitle': testtitle, 'testeventjson': testeventjson})
+    return render(request, 'organiser/month_view.html')
 
 def createevent(request):
     if request.method == "POST":
