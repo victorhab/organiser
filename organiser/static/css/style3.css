@@ -94,6 +94,7 @@ html .fc,
 	}
 
 .fc-header-title {
+  width: inherit;
 	display: inline-block;
 	vertical-align: top;
 	margin-top: -5px;

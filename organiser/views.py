@@ -4,7 +4,6 @@ from .models import Event
 from .forms import EventForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-import json
 from rest_framework import generics
 from .serializers import EventSerializer
 

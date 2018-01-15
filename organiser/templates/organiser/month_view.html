@@ -1,258 +1,250 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 <html>
-<head>
-  <title>Calendar</title>
+  <head>
+    <title>Calendar</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link href="{% static 'css/style.css' %}" rel="stylesheet">
-  <link href="{% static 'css/style2.css' %}" rel="stylesheet">
-  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style2.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-  <link href="{% static 'css/style3.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <link href="{% static 'css/style3.css' %}" rel="stylesheet">
 
-  <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
-<script>
+    <script>
 
-	$(document).ready(function() {
-    $.ajaxSetup({
-      async:false
-    });
-	    var date = new Date();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear();
-
-		/*  className colors
-
-		className: default(transparent), important(red), chill(pink), success(green), info(blue)
-
-		*/
-
-
-		/* initialize the external events
-		-----------------------------------------------------------------*/
-
-		$('#external-events div.external-event').each(function() {
-
-			// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-			// it doesn't need to have a start or end
-			var eventObject = {
-				title: $.trim($(this).text()) // use the element's text as the event title
-			};
-
-			// store the Event Object in the DOM element so we can get to it later
-			$(this).data('eventObject', eventObject);
-
-			// make the event draggable using jQuery UI
-			$(this).draggable({
-				zIndex: 999,
-				revert: true,      // will cause the event to go back to its
-				revertDuration: 0  //  original position after the drag
-			});
-
-		});
-
-
-		/* initialize the calendar
-		-----------------------------------------------------------------*/
-    /*var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "http://127.0.0.1:8000/api/?format=json", true);
-    xmlhttp.send();*/
-
-    function getMyJSon() {
-      var myjson;
-      $.getJSON("http://2id60.win.tue.nl:8067/api/?format=json", function(json){
-          myjson = json;
-      });
-      return myjson;
-    }
-
-    function eventList(length) {
-      var eventarr = [];
-      for (i = 0; i < length; i++) {
-        var titleFromJson = getMyJSon()[i].title;
-        var dateFromJson = getMyJSon()[i].date_time;
-        eventarr.push({
-          title: titleFromJson,
-          start: new Date(dateFromJson)
+    	$(document).ready(function() {
+        $.ajaxSetup({
+          async:false
         });
-      }
-      return eventarr;
-    }
+    	    var date = new Date();
+    		var d = date.getDate();
+    		var m = date.getMonth();
+    		var y = date.getFullYear();
+
+    		/*  className colors
+
+    		className: default(transparent), important(red), chill(pink), success(green), info(blue)
+
+    		*/
 
 
-		var calendar =  $('#calendar').fullCalendar({
-			header: {
-				left: 'title',
-				center: 'agendaDay,agendaWeek,month',
-				right: 'prev,next today'
-			},
-			editable: true,
-			firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
-			selectable: true,
-			defaultView: 'month',
+    		/* initialize the external events
+    		-----------------------------------------------------------------*/
 
-			axisFormat: 'h:mm',
-			columnFormat: {
-                month: 'ddd',    // Mon
-                week: 'ddd d', // Mon 7
-                day: 'dddd M/d',  // Monday 9/7
-                agendaDay: 'dddd d'
-            },
-            titleFormat: {
-                month: 'MMMM yyyy',   // September 2009
-                week: "MMMM yyyy",  // September 2009
-                day: 'MMMM yyyy'  // Tuesday, Sep 8, 2009
-            },
-			allDaySlot: false,
-			selectHelper: true,
-			select: function(start, end, allDay) {
-				var title = prompt('Event Title:');
-				if (title) {
-					calendar.fullCalendar('renderEvent',
-						{
-							title: title,
-							start: start,
-							end: end,
-							allDay: allDay
-						},
-						true // make the event "stick"
-					);
-				}
-				calendar.fullCalendar('unselect');
-			},
-			droppable: true, // this allows things to be dropped onto the calendar
-			drop: function(date, allDay) { // this function is called when something is dropped
+    		$('#external-events div.external-event').each(function() {
 
-				// retrieve the dropped element's stored Event Object
-				var originalEventObject = $(this).data('eventObject');
+    			// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+    			// it doesn't need to have a start or end
+    			var eventObject = {
+    				title: $.trim($(this).text()) // use the element's text as the event title
+    			};
 
-				// we need to copy it, so that multiple events don't have a reference to the same object
-				var copiedEventObject = $.extend({}, originalEventObject);
+    			// store the Event Object in the DOM element so we can get to it later
+    			$(this).data('eventObject', eventObject);
 
-				// assign it the date that was reported
-				copiedEventObject.start = date;
-				copiedEventObject.allDay = allDay;
+    			// make the event draggable using jQuery UI
+    			$(this).draggable({
+    				zIndex: 999,
+    				revert: true,      // will cause the event to go back to its
+    				revertDuration: 0  //  original position after the drag
+    			});
 
-				// render the event on the calendar
-				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-				$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+    		});
 
-				// is the "remove after drop" checkbox checked?
-				if ($('#drop-remove').is(':checked')) {
-					// if so, remove the element from the "Draggable Events" list
-					$(this).remove();
-				}
-			},
-			events: eventList(getMyJSon().length)/*[
-        {
-					title: getMyJSon()[0].title,
-					start: new Date(y, m, 28),
-					url: 'http://google.com/',
-					className: 'success'
-				},
-			]*/,
-		});
-	});
 
-</script>
-<style>
+    		/* initialize the calendar
+    		-----------------------------------------------------------------*/
+        /*var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "http://127.0.0.1:8000/api/?format=json", true);
+        xmlhttp.send();*/
 
-	body {
-    max-height: 100vh;
-	  margin-bottom: 40px;
-		text-align: center;
-		font-size: 14px;
-		font-family: 'Roboto', sans-serif;
-		}
+        function getMyJSon() {
+          var myjson;
+          $.getJSON("http://127.0.0.1:8000/api/?format=json", function(json){
+              myjson = json;
+          });
+          return myjson;
+        }
 
-	#wrap {
-		width: 100%;
-		margin: 0 auto;
-		}
+        function eventList(length) {
+          var eventarr = [];
+          for (i = 0; i < length; i++) {
+            var titleFromJson = getMyJSon()[i].title;
+            var dateFromJson = getMyJSon()[i].date_time;
+            eventarr.push({
+              title: titleFromJson,
+              start: new Date(dateFromJson)
+            });
+          }
+          return eventarr;
+        }
 
-	#external-events {
-		float: left;
-		width: 150px;
-		padding: 0 10px;
-		text-align: left;
-		}
 
-	#external-events h4 {
-		font-size: 16px;
-		margin-top: 0;
-		padding-top: 1em;
-		}
+    		var calendar =  $('#calendar').fullCalendar({
+    			header: {
+    				left: 'title',
+    				center: 'agendaDay,agendaWeek,month',
+    				right: 'prev,next today'
+    			},
+    			editable: true,
+    			firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
+    			selectable: true,
+    			defaultView: 'month',
 
-	.external-event { /* try to mimick the look of a real event */
-		margin: 10px 0;
-		padding: 2px 4px;
-		background: #3366CC;
-		color: #fff;
-		font-size: .85em;
-		cursor: pointer;
-		}
+    			axisFormat: 'h:mm',
+    			columnFormat: {
+                    month: 'ddd',    // Mon
+                    week: 'ddd d', // Mon 7
+                    day: 'dddd M/d',  // Monday 9/7
+                    agendaDay: 'dddd d'
+                },
+                titleFormat: {
+                    month: 'MMMM yyyy',   // September 2009
+                    week: "MMMM yyyy",  // September 2009
+                    day: 'MMMM yyyy'  // Tuesday, Sep 8, 2009
+                },
+    			allDaySlot: false,
+    			selectHelper: true,
+    			select: function(start, end, allDay) {
+    				var title = prompt('Event Title:');
+    				if (title) {
+    					calendar.fullCalendar('renderEvent',
+    						{
+    							title: title,
+    							start: start,
+    							end: end,
+    							allDay: allDay
+    						},
+    						true // make the event "stick"
+    					);
+    				}
+    				calendar.fullCalendar('unselect');
+    			},
+    			droppable: true, // this allows things to be dropped onto the calendar
+    			drop: function(date, allDay) { // this function is called when something is dropped
 
-	#external-events p {
-		margin: 1.5em 0;
-		font-size: 11px;
-		color: #666;
-		}
+    				// retrieve the dropped element's stored Event Object
+    				var originalEventObject = $(this).data('eventObject');
 
-	#external-events p input {
-		margin: 0;
-		vertical-align: middle;
-		}
+    				// we need to copy it, so that multiple events don't have a reference to the same object
+    				var copiedEventObject = $.extend({}, originalEventObject);
 
-	#calendar {
-        margin: 0 auto;
-        width: 65%;
-		    background-color: #FFFFFF;
-		    border-radius: 6px;
-        box-shadow: 0 1px 2px #C3C3C3;
-		    -webkit-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
-        -moz-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
-        box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
-		}
+    				// assign it the date that was reported
+    				copiedEventObject.start = date;
+    				copiedEventObject.allDay = allDay;
 
-</style>
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <img src="{% static 'img/calendar-icon.png' %}" style="height: 30px; width: auto;">
-        Calendar
-      </a>
-        <span class='fc-button fc-button-today fc-button-add fc-state-default fc-corner-left fc-corner-right' style="font-family:inherit;">
+    				// render the event on the calendar
+    				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+    				$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+    				// is the "remove after drop" checkbox checked?
+    				if ($('#drop-remove').is(':checked')) {
+    					// if so, remove the element from the "Draggable Events" list
+    					$(this).remove();
+    				}
+    			},
+    			events: eventList(getMyJSon().length)/*[
+            {
+    					title: getMyJSon()[0].title,
+    					start: new Date(y, m, 28),
+    					url: 'http://google.com/',
+    					className: 'success'
+    				},
+    			]*/,
+    		});
+    	});
+
+    </script>
+    <style>
+
+    	body {
+        max-height: 100vh;
+    	  margin-bottom: 40px;
+    		text-align: center;
+    		font-size: 14px;
+    		font-family: 'Roboto', sans-serif;
+    		}
+
+    	#wrap {
+    		width: 100%;
+    		margin: 0 auto;
+    		}
+
+    	#external-events {
+    		float: left;
+    		width: 150px;
+    		padding: 0 10px;
+    		text-align: left;
+    		}
+
+    	#external-events h4 {
+    		font-size: 16px;
+    		margin-top: 0;
+    		padding-top: 1em;
+    		}
+
+    	.external-event { /* try to mimick the look of a real event */
+    		margin: 10px 0;
+    		padding: 2px 4px;
+    		background: #3366CC;
+    		color: #fff;
+    		font-size: .85em;
+    		cursor: pointer;
+    		}
+
+    	#external-events p {
+    		margin: 1.5em 0;
+    		font-size: 11px;
+    		color: #666;
+    		}
+
+    	#external-events p input {
+    		margin: 0;
+    		vertical-align: middle;
+    		}
+
+    	#calendar {
+            margin: 0 auto;
+            width: 65%;
+    		    background-color: #FFFFFF;
+    		    border-radius: 6px;
+            box-shadow: 0 1px 2px #C3C3C3;
+    		    -webkit-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+            -moz-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+            box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+    		}
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'img/calendar-icon.png' %}" style="height: 30px; width: auto;">
+          Calendar
+        </a>
+        <span class='fc-button fc-button-today fc-button-add fc-state-default fc-corner-left fc-corner-right' style="font-family:inherit;" >
           <a href="{% url 'createevent' %}">
             Add
           </a>
         </span>
-
-      <div>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <span class="fc-button fc-button-today fc-state-default fc-corner-left fc-corner-right" >
-              <a href="{% url 'logout' %}" style="color: #343a40;">Log Out</a>
-            </span>
-          </li>
-
-        </ul>
+        <span class="fc-button fc-button-today fc-state-default fc-corner-left fc-corner-right" >
+          <a href="{% url 'logout' %}" style="color: #343a40;">Log Out</a>
+        </span>
       </div>
+    </nav>
+    <div id="wrap">
+
+      <div id="calendar"></div>
+
+      <div style="clear:both"></div>
     </div>
-  </nav>
-<div id="wrap">
-
-<div id="calendar"></div>
-
-<div style="clear:both"></div>
-</div>
-</body>
+  </body>
 </html>
